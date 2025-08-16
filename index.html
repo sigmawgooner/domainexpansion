@@ -1,65 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sigma Gateway</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sigma Gaming</title>
+  <link rel="icon" id="favicon" href="favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<div id="lockscreen" class="center">
-  <h2>Enter Password</h2>
-  <input type="password" id="passwordInput" placeholder="Password...">
-  <button onclick="checkPassword()">Enter</button>
-  <p id="wrongPass" style="color:red; display:none;">Incorrect Password</p>
-</div>
-
-<div id="main" style="display: none;">
-  <header>Sigma Gaming Menu</header>
-
-  <nav id="menu">
-    <button onclick="loadSite('https://newsigmatism.onrender.com')">Newsigmatism</button>
-    <button onclick="loadSite('https://sigmatism-ovq4.onrender.com')">Sigmatism OVQ4</button>
-    <button onclick="loadSite('https://rvrvrv.onrender.com')">RVRVRV</button>
-    <button onclick="loadSite('https://nepu.to')">Nepu.to</button>
-    <button onclick="loadSite('https://ftnf.onrender.com')">FTNF</button>
-    <button onclick="loadSite('https://waddle-waddle-1k.onrender.com')">Waddle Waddle</button>
-  </nav>
-
-  <div class="toggle-container">
-    <label>
-      <input type="checkbox" id="aboutBlankToggle">
-      Open in about:blank
-    </label>
+  <div id="password-screen">
+    <h1>Welcome to Sigma Gaming</h1>
+    <input type="password" id="password-input" placeholder="Enter Password" />
+    <button onclick="checkPassword()">Enter</button>
   </div>
 
-  <iframe id="display" src="about:blank"></iframe>
-</div>
+  <div id="main-ui" style="display:none;">
+    <div class="topbar">
+      <div class="title" onclick="askAboutBlank()">Sigma Gaming</div>
+      <select id="theme-switcher" onchange="switchTheme(this.value)">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="retro">Retro</option>
+        <option value="glass">Glass</option>
+      </select>
+      <div class="settings">
+        <button onclick="toggleSettings()">⚙️</button>
+      </div>
+    </div>
 
-<script>
-  const CORRECT_PASSWORD = "KAIKAIKITAN";
+    <div id="tab-buttons"></div>
+    <div id="iframe-container"></div>
 
-  function checkPassword() {
-    const input = document.getElementById('passwordInput').value;
-    if (input === CORRECT_PASSWORD) {
-      document.getElementById('lockscreen').style.display = 'none';
-      document.getElementById('main').style.display = 'flex';
-    } else {
-      document.getElementById('wrongPass').style.display = 'block';
-    }
-  }
+    <div id="settings-menu" style="display:none;">
+      <h3>Settings</h3>
+      <ul>
+        <li><button onclick="generateBookmarklet()">Generate Bookmarklet</button></li>
+        <li><button onclick="toggleFakeUI()">Toggle Stealth Mode</button></li>
+        <li><button onclick="toggleThemeCustomizer()">Theme Customizer</button></li>
+        <li><button onclick="saveToFavorites()">⭐ Save Current to Favorites</button></li>
+      </ul>
+    </div>
+  </div>
 
-  function loadSite(url) {
-    const useBlank = document.getElementById('aboutBlankToggle').checked;
-    if (useBlank) {
-      const win = window.open();
-      win.document.write(`<iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>`);
-    } else {
-      document.getElementById('display').src = url;
-    }
-  }
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
