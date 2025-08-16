@@ -1,29 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sigma Gaming Menu</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Sigma Gateway</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>Sigma Gaming Menu</header>
+<div id="lockscreen" class="center">
+  <h2>Enter Password</h2>
+  <input type="password" id="passwordInput" placeholder="Password...">
+  <button onclick="checkPassword()">Enter</button>
+  <p id="wrongPass" style="color:red; display:none;">Incorrect Password</p>
+</div>
 
-<nav id="menu">
-  <button onclick="loadSite('https://newsigmatism.onrender.com')">Newsigmatism</button>
-  <button onclick="loadSite('https://sigmatism-ovq4.onrender.com')">Sigmatism OVQ4</button>
-  <button onclick="loadSite('https://rvrvrv.onrender.com')">RVRVRV</button>
-  <button onclick="loadSite('https://nepu.to')">Nepu.to</button>
-  <button onclick="loadSite('https://ftnf.onrender.com')">FTNF</button>
-</nav>
+<div id="main" style="display: none;">
+  <header>Sigma Gaming Menu</header>
 
-<iframe id="display" src="about:blank"></iframe>
+  <nav id="menu">
+    <button onclick="loadSite('https://newsigmatism.onrender.com')">Newsigmatism</button>
+    <button onclick="loadSite('https://sigmatism-ovq4.onrender.com')">Sigmatism OVQ4</button>
+    <button onclick="loadSite('https://rvrvrv.onrender.com')">RVRVRV</button>
+    <button onclick="loadSite('https://nepu.to')">Nepu.to</button>
+    <button onclick="loadSite('https://ftnf.onrender.com')">FTNF</button>
+    <button onclick="loadSite('https://waddle-waddle-1k.onrender.com')">Waddle Waddle</button>
+  </nav>
+
+  <div class="toggle-container">
+    <label>
+      <input type="checkbox" id="aboutBlankToggle">
+      Open in about:blank
+    </label>
+  </div>
+
+  <iframe id="display" src="about:blank"></iframe>
+</div>
 
 <script>
-  const iframe = document.getElementById('display');
+  const CORRECT_PASSWORD = "KAIKAIKITAN";
+
+  function checkPassword() {
+    const input = document.getElementById('passwordInput').value;
+    if (input === CORRECT_PASSWORD) {
+      document.getElementById('lockscreen').style.display = 'none';
+      document.getElementById('main').style.display = 'flex';
+    } else {
+      document.getElementById('wrongPass').style.display = 'block';
+    }
+  }
+
   function loadSite(url) {
-    iframe.src = url;
+    const useBlank = document.getElementById('aboutBlankToggle').checked;
+    if (useBlank) {
+      const win = window.open();
+      win.document.write(`<iframe src="${url}" style="border:none;width:100vw;height:100vh;"></iframe>`);
+    } else {
+      document.getElementById('display').src = url;
+    }
   }
 </script>
 
